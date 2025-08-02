@@ -19,6 +19,14 @@ with open("qoutes.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
     for item in data:
+        author_obj = Authors.objects(fullname=item["author"]).first()
+        if not author_obj:
+            print(f"Автор не знайдений: {item['author']}")
+            continue
+
+        item["author"] = author_obj
+
+    for item in data:
         if not Quotes.objects(tags=item["tags"]).first():
             try:
                 author = Quotes(**item)
