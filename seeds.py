@@ -6,10 +6,23 @@ import json
 with open("authors.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
-for ithem in data:
-    if not Authors.objects(fullname=ithem["fullname"]).first():
-        author = Authors(**ithem)
-        author.save()
+    for item in data:
+        if not Authors.objects(fullname=item["fullname"]).first():
+            try:
+                author = Authors(**item)
+                author.save()
+            except Exception as e:
+                print(f"Помилка: {e}")
 
-with open("authors.json", "r", encoding="utf-8") as f:
+
+with open("qoutes.json", "r", encoding="utf-8") as f:
     data = json.load(f)
+
+    for item in data:
+        if not Quotes.objects(tags=item["tags"]).first():
+            try:
+                author = Quotes(**item)
+                author.save()
+            except Exception as e:
+                print(f"Помилка: {e}")
+

@@ -1,6 +1,7 @@
 from mongoengine import Document, ReferenceField
-from mongoengine.fields import DateTimeField, StringField
+from mongoengine.fields import DateTimeField, StringField, ListField
 from datetime import datetime
+from connect import connect
 
 class Authors(Document):
     fullname = StringField(required=True)
@@ -10,7 +11,7 @@ class Authors(Document):
     created = DateTimeField(default=datetime.now(), required=True)
 
 class Quotes (Document):
-    tags = StringField(required=True)
+    tags = ListField(required=True)
     author = ReferenceField(Authors, required=True)
     quote = StringField(required=True)
     created = DateTimeField(default=datetime.now(), required=True)
