@@ -1,38 +1,26 @@
 from models import Contacts
-# import json
-from faker
+from random import randint
+from faker import Faker
+from models import Contacts
+
+fake = Faker('uk-Ua')
+
+class Contact():
+    def __init__(self):
+        self.name = fake.name()
+        self.email = fake.email()
+        self.checkbox = False
+
+    def __str__(self):
+        return f"Name: {self.name}, Email: {self.email}, SendEmail: {self.checkbox}"
+
+for i in range(randint(10,15)):
+    contact = Contact()
+    try:
+        contact_for_mongo = Contacts(fullname=contact.name, email=contact.email, Checkbox=contact.checkbox)
+        contact_for_mongo.save()
+    except Exception as e:
+        print(f"Помилка: {e}")
 
 
-
-
-with open("authors.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
-
-    for item in data:
-        if not Authors.objects(fullname=item["fullname"]).first():
-            try:
-                author = Authors(**item)
-                author.save()
-            except Exception as e:
-                print(f"Помилка: {e}")
-
-
-with open("qoutes.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
-
-    for item in data:
-        author_obj = Authors.objects(fullname=item["author"]).first()
-        if not author_obj:
-            print(f"Автор не знайдений: {item['author']}")
-            continue
-
-        item["author"] = author_obj
-
-    for item in data:
-        if not Quotes.objects(tags=item["tags"]).first():
-            try:
-                author = Quotes(**item)
-                author.save()
-            except Exception as e:
-                print(f"Помилка: {e}")
 
